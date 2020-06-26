@@ -96,6 +96,45 @@ cc.Class({
         return ret <= this.map[x][y];
     },
 
+    go_to_block(x, y) {
+        if (!this.check(x, y)) return 0;
+        if (x) {
+            if (!this.check(x - 1, y)) return 0;
+        }
+        if (x < this.land.size - 1) {
+            if (!this.check(x + 1, y)) return 0;
+        }
+        if (y) {
+            if (!this.check(x, y - 1)) return 0;
+        }
+        if (y < this.land.size - 1) {
+            if (!this.check(x, y + 1)) return 0;
+        }
+        return 1;
+    },
+
+    go_to_end() {
+        let flag = true;
+        for (let i = 0; i < this.land.size; ++i) {
+            for (let j = 0; j < this.land.size; ++j) {
+                if (!this.map[i][j]) {
+                    this.map[i][j] = this.plant;
+                    if (this.go_to_block(i, j)) {
+                        flag = false;
+                        this.map[i][j] = 0;
+                        break;
+                    }
+                    this.map[i][j] = 0;
+                }
+            }
+            if (flag == false) break;
+        }
+        if (flag == true) {
+            let Gameover = cc.find("/Canvas/Gameover").getComponent("gameover");
+            Gameover.set();
+        }
+    },
+
     on_touch_end() {
         this.node.opacity = 255;
 
@@ -139,6 +178,7 @@ cc.Class({
                         }, 100);
                     }, 100);
                     this.map[x][y] = 0;
+                    this.go_to_end();
                 }
             }
         }
