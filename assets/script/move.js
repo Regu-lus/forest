@@ -121,8 +121,9 @@ cc.Class({
                 this.map[x][y] = this.plant;
                 if (this.check(x, y) && this.check(x - 1, y) && this.check(x + 1, y) && this.check(x, y - 1) && this.check(x, y + 1)) {
                     this.land.generate(min, this.getComponent(cc.Sprite).spriteFrame);
-                    var Score =  this._game = cc.find("/Canvas/Score").getComponent("score");
-                    Score.add(this.plant) ;     //加分
+                    let Score = cc.find("/Canvas/Score").getComponent("score");
+                    let add_score = (parseInt(Math.random() * 50) + 50) * (5 - this.plant);
+                    Score.add(add_score);     //加分
                     this.generate();
                 } else {
                     setTimeout(() => {

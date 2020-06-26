@@ -20,12 +20,12 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        var label = this.getComponent(cc.Label);
+        let label = this.getComponent(cc.Label);
         label.string = "Score: "+ this.number;
     },
 
     add (num) {
-        var label = this.getComponent(cc.Label);
+        let label = this.getComponent(cc.Label);
         this.number += num;
         label.string = "Score: "+ this.number;
     },
