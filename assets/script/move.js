@@ -130,8 +130,8 @@ cc.Class({
             if (flag == false) break;
         }
         if (flag == true) {
-            let Gameover = cc.find("/Canvas/Gameover").getComponent("gameover");
-            Gameover.set();
+            let gameover = cc.find('/Canvas/Gameover').getComponent('gameover');
+            gameover.set();
         }
     },
 
@@ -160,9 +160,9 @@ cc.Class({
                 this.map[x][y] = this.plant;
                 if (this.check(x, y) && this.check(x - 1, y) && this.check(x + 1, y) && this.check(x, y - 1) && this.check(x, y + 1)) {
                     this.land.generate(min, this.getComponent(cc.Sprite).spriteFrame);
-                    let Score = cc.find("/Canvas/Score").getComponent("score");
+                    let score = cc.find('/Canvas/Score').getComponent('score');
                     let add_score = (parseInt(Math.random() * 50) + 50) * (5 - this.plant);
-                    Score.add(add_score);     //加分
+                    score.add(add_score);     //加分
                     this.generate();
                 } else {
                     setTimeout(() => {

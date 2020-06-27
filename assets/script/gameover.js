@@ -1,20 +1,22 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
     extends: cc.Component,
 
     // LIFE-CYCLE CALLBACKS:
 
-    set () {
-        this.node.opacity = 255;
+    set() {
+        this.node.on(cc.Node.EventType.TOUCH_START, this.on_touch_start, this);
+        this.node.opacity = 245;
+    },
+
+    on_touch_start() {
+        this.node.off(cc.Node.EventType.TOUCH_START, this.on_touch_start, this);
+        this.node.opacity = 0;
+        let score = cc.find('/Canvas/Score').getComponent('score');
+        score.onLoad();
+        let land = cc.find('/Canvas/New ScrollView/view/content').getComponent('land');
+        land.onLoad();
+        let plant = cc.find('/Canvas/Plant').getComponent('move');
+        plant.onLoad();
     },
 
     // update (dt) {},
