@@ -24,16 +24,18 @@ cc.Class({
 
     onLoad() {
         this.node.width = this.node.height = this.size * this.length + 20;
-        let children = this.node.children;
-        for (let i = children.length - 1; i >= 0; --i) {
-            children[i].destroy();
-        }
         cc.loader.loadRes('space', cc.SpriteFrame, (err, spriteFrame) => {
+            if (!this.node.children.length) {
+                for (let i = 0; i < this.size; ++i) {
+                    for (let j = 0; j < this.size; ++j) {
+                        var node = new cc.Node('Sprite');
+                        node.addComponent(cc.Sprite);
+                        node.parent = this.node;
+                    }
+                }
+            }
             for (let i = 0; i < this.size; ++i) {
                 for (let j = 0; j < this.size; ++j) {
-                    var node = new cc.Node('Sprite');
-                    node.addComponent(cc.Sprite);
-                    node.parent = this.node;
                     this.generate(i * this.size + j, spriteFrame);
                 }
             }
