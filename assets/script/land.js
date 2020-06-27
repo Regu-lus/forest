@@ -3,10 +3,12 @@ cc.Class({
 
     properties: {
         size: {
-            default: null,
+            default: 0,
+            type: cc.Integer
         },
         length: {
-            default: null,
+            default: 0,
+            type: cc.Integer
         },
     },
 
@@ -22,6 +24,10 @@ cc.Class({
 
     onLoad() {
         this.node.width = this.node.height = this.size * this.length + 20;
+        let children = this.node.children;
+        for (let i = children.length - 1; i >= 0; --i) {
+            children[i].destroy();
+        }
         cc.loader.loadRes('space', cc.SpriteFrame, (err, spriteFrame) => {
             for (let i = 0; i < this.size; ++i) {
                 for (let j = 0; j < this.size; ++j) {
